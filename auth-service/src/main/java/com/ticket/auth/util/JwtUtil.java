@@ -19,11 +19,9 @@ public class JwtUtil {
     private String secret;
 
     private Key getSignKey() {
-        // Validating secret length or using it directly.
-        // For JJWT with HS256, key should be strong.
-        // If "your_jwt_secret" is too weak, JJWT might fail.
-        // We'll trust the user provided secret but usually it needs to be encoded.
-        // For simplicity and legacy compat if any, we use bytes.
+        // Using getBytes() is safe if the secret string is long enough (>= 32 chars for
+        // 256 bits).
+        // We updated the secret to be 64 chars long.
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 

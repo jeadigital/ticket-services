@@ -1,1 +1,2 @@
 com\ticket\gateway\ApiGatewayApplication.class
+com\ticket\gateway\config\CorsConfig.class
