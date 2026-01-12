@@ -1,0 +1,110 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.ticket:auth-service >-----------------------
+[INFO] Building auth-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ auth-service ---
+[INFO] Deleting C:\JEA\Ticketing\ticket-services-1\auth-service\target
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ auth-service ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ auth-service ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 14 source files to C:\JEA\Ticketing\ticket-services-1\auth-service\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[6,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[7,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[3,1] package jakarta.persistence does not exist
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[10,6] cannot find symbol
+  symbol:   class Id
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[11,6] cannot find symbol
+  symbol:   class GeneratedValue
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[11,32] cannot find symbol
+  symbol:   variable GenerationType
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[14,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[17,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[20,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[23,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[26,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[31,6] cannot find symbol
+  symbol:   class Column
+  location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/config/SecurityConfig.java:[18,25] method requestMatchers in class org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry<C> cannot be applied to given types;
+  required: org.springframework.security.web.util.matcher.RequestMatcher[]
+  found: java.lang.String
+  reason: varargs mismatch; java.lang.String cannot be converted to org.springframework.security.web.util.matcher.RequestMatcher
+[INFO] 13 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.986 s
+[INFO] Finished at: 2026-01-12T13:57:45+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project auth-service: Compilation failure: Compilation failure: 
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[6,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[7,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[3,1] package jakarta.persistence does not exist
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[10,6] cannot find symbol
+[ERROR]   symbol:   class Id
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[11,6] cannot find symbol
+[ERROR]   symbol:   class GeneratedValue
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[11,32] cannot find symbol
+[ERROR]   symbol:   variable GenerationType
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[14,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[17,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[20,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[23,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[26,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/model/SiteUser.java:[31,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.ticket.auth.model.SiteUser
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/auth-service/src/main/java/com/ticket/auth/config/SecurityConfig.java:[18,25] method requestMatchers in class org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry<C> cannot be applied to given types;
+[ERROR]   required: org.springframework.security.web.util.matcher.RequestMatcher[]
+[ERROR]   found: java.lang.String
+[ERROR]   reason: varargs mismatch; java.lang.String cannot be converted to org.springframework.security.web.util.matcher.RequestMatcher
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

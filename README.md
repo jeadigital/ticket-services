@@ -1,7 +1,7 @@
 # Ticket Services - Microservices Architecture
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.18-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-11-orange.svg)](https://www.oracle.com/java/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -20,6 +20,7 @@ A **production-ready**, **scalable** support ticket management system built with
 - [Installation & Setup](#installation--setup)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
+- [Exception Handling](#exception-handling)
 - [Database Schema](#database-schema)
 - [Security](#security)
 - [Project Structure](#project-structure)
@@ -51,6 +52,7 @@ This application is a **cloud-native microservices-based ticketing/support syste
 - ✅ **Service Discovery** using Netflix Eureka
 - ✅ **API Gateway** for centralized routing and load balancing
 - ✅ **Interactive API Documentation** with Swagger/OpenAPI 3.0
+- ✅ **Professional Exception Handling** with developer-friendly error messages
 - ✅ **RESTful APIs** with comprehensive documentation
 - ✅ **MySQL Database** with JPA/Hibernate ORM
 - ✅ **Spring Security** for robust authentication
@@ -109,6 +111,7 @@ The application follows a **microservices architecture** pattern with the follow
 3. **Database per Service**: Each service manages its own data (shared DB in this implementation)
 4. **JWT Authentication**: Stateless, token-based security
 5. **RESTful Communication**: HTTP/JSON for inter-service communication
+6. **Global Exception Handling**: Centralized error handling with developer-friendly messages
 
 ---
 
@@ -117,7 +120,7 @@ The application follows a **microservices architecture** pattern with the follow
 ### Backend Microservices
 
 #### 🔐 Authentication & Security
-- User registration with encrypted passwords (BCrypt)
+- User registration with encrypted passwords (MD5)
 - JWT-based authentication and authorization
 - Secure password storage (never stored in plain text)
 - Token-based session management
@@ -130,6 +133,14 @@ The application follows a **microservices architecture** pattern with the follow
 - Priority-based ticket classification
 - User-specific ticket access control
 - Automatic timestamp tracking (created, last updated)
+
+#### ⚠️ Professional Exception Handling
+- **Custom domain-specific exceptions** with contextual information
+- **Developer-friendly error messages** (e.g., "Registration failed: Email 'user@example.com' is already registered")
+- **Standardized error response format** across all services
+- **Global exception handlers** with comprehensive logging
+- **JWT-specific exception handling** for token validation failures
+- **Automatic error response generation** with timestamps and request paths
 
 #### 🌐 Microservices Infrastructure
 - **Service Discovery**: Automatic service registration and discovery
@@ -152,9 +163,9 @@ The application follows a **microservices architecture** pattern with the follow
 ### Core Framework
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| **Java** | 17 | Programming Language |
-| **Spring Boot** | 3.2.1 | Application Framework |
-| **Spring Cloud** | 2023.0.0 | Microservices Framework |
+| **Java** | 11 | Programming Language |
+| **Spring Boot** | 2.7.18 | Application Framework |
+| **Spring Cloud** | 2021.0.8 | Microservices Framework |
 | **Maven** | 3.6+ | Build & Dependency Management |
 
 ### Spring Ecosystem
@@ -322,10 +333,10 @@ Ensure you have the following installed before proceeding:
 
 ### Required Software
 
-1. **Java Development Kit (JDK) 17 or higher**
+1. **Java Development Kit (JDK) 11 or higher**
    ```bash
    java -version
-   # Should output: java version "17.x.x" or higher
+   # Should output: java version "11.x.x" or higher
    ```
    Download: [Oracle JDK](https://www.oracle.com/java/technologies/downloads/) or [OpenJDK](https://adoptium.net/)
 
@@ -425,7 +436,14 @@ jwt.secret=your_secure_jwt_secret_key_here_minimum_256_bits
 > ```
 
 ### Step 5: Build All Services
+ 
+#### Option 1: Using Build Script (Recommended - Windows)
+```bash
+# Verify you are in the project root
+.\build_all.bat
+```
 
+#### Option 2: Manual Build
 From the project root directory:
 
 ```bash
@@ -456,8 +474,13 @@ cd ..
 
 ## ▶️ Running the Application
 
-### Important: Service Startup Order
+### Option 1: Using Run Script (Recommended - Windows)
+```bash
+# Verify you are in the project root
+.\run_all.bat
+```
 
+### Option 2: Manual Startup
 Services must be started in the following order to ensure proper registration:
 
 ### Step 1: Start Discovery Server (Eureka)
@@ -1499,7 +1522,7 @@ spring.jpa.properties.hibernate.format_sql=true
 - [ ] **Caching**: Redis for improved performance
 - [ ] **Monitoring**: Prometheus + Grafana dashboards
 - [ ] **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
-- [ ] **API Documentation**: Swagger/OpenAPI integration
+- [x] **API Documentation**: Swagger/OpenAPI integration
 
 ### Feature Enhancements
 

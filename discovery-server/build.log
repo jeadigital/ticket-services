@@ -1,0 +1,74 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.ticket:discovery-server >---------------------
+[INFO] Building discovery-server 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ discovery-server ---
+[INFO] Deleting C:\JEA\Ticketing\ticket-services-1\discovery-server\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ discovery-server ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ discovery-server ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\JEA\Ticketing\ticket-services-1\discovery-server\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[3,32] cannot access org.springframework.boot.SpringApplication
+  bad class file: C:\Users\Ambily\.m2\repository\org\springframework\boot\spring-boot\3.0.13\spring-boot-3.0.13.jar(/org/springframework/boot/SpringApplication.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[4,46] cannot access org.springframework.boot.autoconfigure.SpringBootApplication
+  bad class file: C:\Users\Ambily\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.0.13\spring-boot-autoconfigure-3.0.13.jar(/org/springframework/boot/autoconfigure/SpringBootApplication.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[5,55] cannot access org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
+  bad class file: C:\Users\Ambily\.m2\repository\org\springframework\cloud\spring-cloud-netflix-eureka-server\4.0.3\spring-cloud-netflix-eureka-server-4.0.3.jar(/org/springframework/cloud/netflix/eureka/server/EnableEurekaServer.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[7,2] cannot find symbol
+  symbol: class SpringBootApplication
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[8,2] cannot find symbol
+  symbol: class EnableEurekaServer
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[11,9] cannot find symbol
+  symbol:   variable SpringApplication
+  location: class com.ticket.discovery.DiscoveryServerApplication
+[INFO] 6 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.182 s
+[INFO] Finished at: 2026-01-12T13:50:01+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project discovery-server: Compilation failure: Compilation failure: 
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[3,32] cannot access org.springframework.boot.SpringApplication
+[ERROR]   bad class file: C:\Users\Ambily\.m2\repository\org\springframework\boot\spring-boot\3.0.13\spring-boot-3.0.13.jar(/org/springframework/boot/SpringApplication.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[4,46] cannot access org.springframework.boot.autoconfigure.SpringBootApplication
+[ERROR]   bad class file: C:\Users\Ambily\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.0.13\spring-boot-autoconfigure-3.0.13.jar(/org/springframework/boot/autoconfigure/SpringBootApplication.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[5,55] cannot access org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
+[ERROR]   bad class file: C:\Users\Ambily\.m2\repository\org\springframework\cloud\spring-cloud-netflix-eureka-server\4.0.3\spring-cloud-netflix-eureka-server-4.0.3.jar(/org/springframework/cloud/netflix/eureka/server/EnableEurekaServer.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[7,2] cannot find symbol
+[ERROR]   symbol: class SpringBootApplication
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[8,2] cannot find symbol
+[ERROR]   symbol: class EnableEurekaServer
+[ERROR] /C:/JEA/Ticketing/ticket-services-1/discovery-server/src/main/java/com/ticket/discovery/DiscoveryServerApplication.java:[11,9] cannot find symbol
+[ERROR]   symbol:   variable SpringApplication
+[ERROR]   location: class com.ticket.discovery.DiscoveryServerApplication
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

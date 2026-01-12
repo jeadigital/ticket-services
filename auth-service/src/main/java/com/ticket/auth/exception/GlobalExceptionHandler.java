@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
@@ -16,142 +16,147 @@ import java.time.LocalDateTime;
  * Catches all exceptions and returns standardized error responses with
  * developer-friendly messages.
  */
-@ControllerAdvice
+@org.springframework.web.bind.annotation.RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+        private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    /**
-     * Handle UserAlreadyExistsException - thrown when email is already registered
-     */
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleUserAlreadyExists(
-            UserAlreadyExistsException ex, WebRequest request) {
+        public GlobalExceptionHandler() {
+                System.out.println(">>> GlobalExceptionHandler INITIALIZED <<<");
+        }
 
-        logger.warn("Registration attempt with existing email: {}", ex.getEmail());
+        /**
+         * Handle UserAlreadyExistsException - thrown when email is already registered
+         */
+        @ExceptionHandler(UserAlreadyExistsException.class)
+        public ResponseEntity<ErrorResponse> handleUserAlreadyExists(
+                        UserAlreadyExistsException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(getRequestPath(request))
-                .details(String.format("Email '%s' is already in use", ex.getEmail()))
-                .build();
+                System.out.println(">>> Handling UserAlreadyExistsException for: " + ex.getEmail());
+                logger.warn("Registration attempt with existing email: {}", ex.getEmail());
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.BAD_REQUEST.value())
+                                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                                .message(ex.getMessage())
+                                .path(getRequestPath(request))
+                                .details(String.format("Email '%s' is already in use", ex.getEmail()))
+                                .build();
 
-    /**
-     * Handle InvalidCredentialsException - thrown when login credentials are
-     * incorrect
-     */
-    @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidCredentials(
-            InvalidCredentialsException ex, WebRequest request) {
+                return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
 
-        logger.warn("Failed login attempt from path: {}", getRequestPath(request));
+        /**
+         * Handle InvalidCredentialsException - thrown when login credentials are
+         * incorrect
+         */
+        @ExceptionHandler(InvalidCredentialsException.class)
+        public ResponseEntity<ErrorResponse> handleInvalidCredentials(
+                        InvalidCredentialsException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.UNAUTHORIZED.value())
-                .error(HttpStatus.UNAUTHORIZED.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(getRequestPath(request))
-                .build();
+                logger.warn("Failed login attempt from path: {}", getRequestPath(request));
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.UNAUTHORIZED.value())
+                                .error(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+                                .message(ex.getMessage())
+                                .path(getRequestPath(request))
+                                .build();
 
-    /**
-     * Handle AccountNotActiveException - thrown when account is not active
-     */
-    @ExceptionHandler(AccountNotActiveException.class)
-    public ResponseEntity<ErrorResponse> handleAccountNotActive(
-            AccountNotActiveException ex, WebRequest request) {
+                return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+        }
 
-        logger.warn("Login attempt with inactive account: {} (status: {})",
-                ex.getEmail(), ex.getStatus());
+        /**
+         * Handle AccountNotActiveException - thrown when account is not active
+         */
+        @ExceptionHandler(AccountNotActiveException.class)
+        public ResponseEntity<ErrorResponse> handleAccountNotActive(
+                        AccountNotActiveException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.FORBIDDEN.value())
-                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(getRequestPath(request))
-                .details(String.format("Account status: %s", ex.getStatus()))
-                .build();
+                logger.warn("Login attempt with inactive account: {} (status: {})",
+                                ex.getEmail(), ex.getStatus());
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.FORBIDDEN.value())
+                                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
+                                .message(ex.getMessage())
+                                .path(getRequestPath(request))
+                                .details(String.format("Account status: %s", ex.getStatus()))
+                                .build();
 
-    /**
-     * Handle PasswordHashingException - thrown when password hashing fails
-     */
-    @ExceptionHandler(PasswordHashingException.class)
-    public ResponseEntity<ErrorResponse> handlePasswordHashing(
-            PasswordHashingException ex, WebRequest request) {
+                return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+        }
 
-        logger.error("Password hashing failed", ex);
+        /**
+         * Handle PasswordHashingException - thrown when password hashing fails
+         */
+        @ExceptionHandler(PasswordHashingException.class)
+        public ResponseEntity<ErrorResponse> handlePasswordHashing(
+                        PasswordHashingException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(getRequestPath(request))
-                .details("Please contact system administrator")
-                .build();
+                logger.error("Password hashing failed", ex);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                                .message(ex.getMessage())
+                                .path(getRequestPath(request))
+                                .details("Please contact system administrator")
+                                .build();
 
-    /**
-     * Handle IllegalArgumentException - thrown for invalid input parameters
-     */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgument(
-            IllegalArgumentException ex, WebRequest request) {
+                return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        logger.warn("Invalid argument: {}", ex.getMessage());
+        /**
+         * Handle IllegalArgumentException - thrown for invalid input parameters
+         */
+        @ExceptionHandler(IllegalArgumentException.class)
+        public ResponseEntity<ErrorResponse> handleIllegalArgument(
+                        IllegalArgumentException ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .message("Invalid request parameter: " + ex.getMessage())
-                .path(getRequestPath(request))
-                .build();
+                logger.warn("Invalid argument: {}", ex.getMessage());
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.BAD_REQUEST.value())
+                                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                                .message("Invalid request parameter: " + ex.getMessage())
+                                .path(getRequestPath(request))
+                                .build();
 
-    /**
-     * Handle all other unexpected exceptions
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGlobalException(
-            Exception ex, WebRequest request) {
+                return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        }
 
-        logger.error("Unexpected error occurred", ex);
+        /**
+         * Handle all other unexpected exceptions
+         */
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<ErrorResponse> handleGlobalException(
+                        Exception ex, WebRequest request) {
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                .message(
-                        "An unexpected error occurred. Please try again later or contact support if the problem persists.")
-                .path(getRequestPath(request))
-                .details(ex.getClass().getSimpleName() + ": " + ex.getMessage())
-                .build();
+                logger.error("Unexpected error occurred", ex);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .timestamp(LocalDateTime.now())
+                                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                                .message(
+                                                "An unexpected error occurred. Please try again later or contact support if the problem persists.")
+                                .path(getRequestPath(request))
+                                .details(ex.getClass().getSimpleName() + ": " + ex.getMessage())
+                                .build();
 
-    /**
-     * Extract request path from WebRequest
-     */
-    private String getRequestPath(WebRequest request) {
-        return request.getDescription(false).replace("uri=", "");
-    }
+                return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        /**
+         * Extract request path from WebRequest
+         */
+        private String getRequestPath(WebRequest request) {
+                return request.getDescription(false).replace("uri=", "");
+        }
 }

@@ -34,46 +34,33 @@ public class AuthController {
   })
   @PostMapping("/register")
   public ResponseEntity<?> register(
-      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true, content = @Content(schema = @Schema(implementation = SiteUser.class), examples = @ExampleObject(value = """
-          {
-            "firstName": "John",
-            "lastName": "Doe",
-            "email": "john.doe@example.com",
-            "password": "securePassword123",
-            "userType": "customer",
-            "status": "active"
-          }
-          """))) @RequestBody SiteUser user) {
-    String rawPassword = user.getPassword();
-    authService.register(user, rawPassword);
-    return ResponseEntity.status(201).body(Map.of("message", "User registered successfully"));
+      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true, content = @Content(schema = @Schema(implementation = SiteUser.class), examples = @ExampleObject(value = "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@example.com\", \"password\": \"securePassword123\", \"userType\": \"customer\", \"status\": \"active\"}"))) @RequestBody SiteUser user) {
+    try {
+      String rawPassword = user.getPassword();
+      authService.register(user, rawPassword);
+      return ResponseEntity.status(201).body(Map.of("message", "User registered successfully"));
+    } catch (Throwable e) {
+      e.printStackTrace();
+      Map<String, String> errorDetails = new java.util.HashMap<>();
+      errorDetails.put("error", "Debug: Exception Caught in Controller");
+      errorDetails.put("exceptionClass", e.getClass().getName());
+      errorDetails.put("message", e.getMessage());
+      if (e.getCause() != null) {
+        errorDetails.put("cause", e.getCause().getClass().getName());
+        errorDetails.put("causeMessage", e.getCause().getMessage());
+      }
+      return ResponseEntity.status(500).body(errorDetails);
+    }
   }
 
   @Operation(summary = "User login", description = "Authenticates user credentials and returns a JWT token for accessing protected endpoints.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Login successful - Returns JWT token and user details", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
-          {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-            "user": {
-              "id": 1,
-              "firstName": "John",
-              "lastName": "Doe",
-              "email": "john.doe@example.com",
-              "userType": "customer",
-              "status": "active"
-            }
-          }
-          """))),
+      @ApiResponse(responseCode = "200", description = "Login successful - Returns JWT token and user details", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\", \"user\": {\"id\": 1, \"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@example.com\", \"userType\": \"customer\", \"status\": \"active\"}}"))),
       @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid credentials", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = "{\"message\": \"Invalid credentials\"}")))
   })
   @PostMapping("/login")
   public ResponseEntity<?> login(
-      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User login credentials", required = true, content = @Content(examples = @ExampleObject(value = """
-          {
-            "email": "john.doe@example.com",
-            "password": "securePassword123"
-          }
-          """))) @RequestBody Map<String, String> creds) {
+      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User login credentials", required = true, content = @Content(examples = @ExampleObject(value = "{\"email\": \"john.doe@example.com\", \"password\": \"securePassword123\"}"))) @RequestBody Map<String, String> creds) {
     SiteUser user = authService.login(creds.get("email"), creds.get("password"));
     String token = jwtUtil.generateToken(user);
     return ResponseEntity.ok(Map.of(

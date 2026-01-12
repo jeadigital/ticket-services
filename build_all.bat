@@ -1,22 +1,22 @@
 @echo off
 echo Building Discovery Service...
-cd microservices/discovery-server
+cd discovery-server
 call mvn clean package -DskipTests
-cd ../..
+cd ..
 
 echo Building API Gateway...
-cd microservices/api-gateway
+cd api-gateway
 call mvn clean package -DskipTests
-cd ../..
+cd ..
 
 echo Building Auth Service...
-cd microservices/auth-service
+cd auth-service
 call mvn clean package -DskipTests
-cd ../..
+cd ..
 
 echo Building Ticket Service...
-cd microservices/ticket-service
+cd ticket-service
 call mvn clean package -DskipTests
-cd ../..
+cd ..
 
 echo Build Complete.
