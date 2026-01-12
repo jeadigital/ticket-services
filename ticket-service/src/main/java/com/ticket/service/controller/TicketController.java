@@ -1,5 +1,6 @@
 package com.ticket.service.controller;
 
+import com.ticket.service.exception.InvalidTokenException;
 import com.ticket.service.model.Ticket;
 import com.ticket.service.service.TicketService;
 import com.ticket.service.util.JwtUtil;
@@ -33,12 +34,12 @@ public class TicketController {
     private JwtUtil jwtUtil;
 
     private Long getUserIdFromToken(String tokenHeader) {
-        if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-            String token = tokenHeader.substring(7);
-            Claims claims = jwtUtil.validateToken(token);
-            return ((Number) claims.get("id")).longValue();
+        if (tokenHeader == null || !tokenHeader.startsWith("Bearer ")) {
+            throw new InvalidTokenException("Missing or malformed Authorization header");
         }
-        throw new RuntimeException("Invalid Token");
+        String token = tokenHeader.substring(7);
+        Claims claims = jwtUtil.validateToken(token);
+        return ((Number) claims.get("id")).longValue();
     }
 
     @Operation(summary = "Create a new ticket", description = "Creates a new support ticket for the authenticated user. Returns ticket ID and tracking ID.")
@@ -64,17 +65,13 @@ public class TicketController {
                     }
                     """))) @RequestBody Ticket ticket,
             @Parameter(description = "JWT Bearer token", required = true, example = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...") @RequestHeader("Authorization") String token) {
-        try {
-            Long userId = getUserIdFromToken(token);
-            Ticket created = ticketService.createTicket(ticket, userId);
+        Long userId = getUserIdFromToken(token);
+        Ticket created = ticketService.createTicket(ticket, userId);
 
-            return ResponseEntity.status(201).body(Map.of(
-                    "message", "Ticket created successfully",
-                    "ticketId", created.getId(),
-                    "trackId", created.getTicketTrackId()));
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(Map.of("message", e.getMessage()));
-        }
+        return ResponseEntity.status(201).body(Map.of(
+                "message", "Ticket created successfully",
+                "ticketId", created.getId(),
+                "trackId", created.getTicketTrackId()));
     }
 
     @Operation(summary = "Get all tickets", description = "Retrieves all tickets for the authenticated user. Optionally filter by status.")
@@ -102,13 +99,9 @@ public class TicketController {
     public ResponseEntity<?> getTickets(
             @Parameter(description = "Filter tickets by status (e.g., open, closed, pending)", example = "open") @RequestParam(required = false) String status,
             @Parameter(description = "JWT Bearer token", required = true, example = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...") @RequestHeader("Authorization") String token) {
-        try {
-            Long userId = getUserIdFromToken(token);
-            List<Ticket> tickets = ticketService.getTickets(userId, status);
-            return ResponseEntity.ok(tickets);
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(Map.of("message", e.getMessage()));
-        }
+        Long userId = getUserIdFromToken(token);
+        List<Ticket> tickets = ticketService.getTickets(userId, status);
+        return ResponseEntity.ok(tickets);
     }
 
     @Operation(summary = "Get ticket by ID", description = "Retrieves a specific ticket by its ID. User can only access their own tickets.")
@@ -135,15 +128,8 @@ public class TicketController {
     public ResponseEntity<?> getTicketById(
             @Parameter(description = "Ticket ID", required = true, example = "123") @PathVariable Long id,
             @Parameter(description = "JWT Bearer token", required = true, example = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...") @RequestHeader("Authorization") String token) {
-        try {
-            Long userId = getUserIdFromToken(token);
-            Ticket ticket = ticketService.getTicketById(id, userId);
-            if (ticket == null) {
-                return ResponseEntity.status(404).body(Map.of("message", "Ticket not found or access denied"));
-            }
-            return ResponseEntity.ok(ticket);
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(Map.of("message", e.getMessage()));
-        }
+        Long userId = getUserIdFromToken(token);
+        Ticket ticket = ticketService.getTicketById(id, userId);
+        return ResponseEntity.ok(ticket);
     }
 }

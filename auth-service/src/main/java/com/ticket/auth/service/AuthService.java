@@ -1,5 +1,9 @@
 package com.ticket.auth.service;
 
+import com.ticket.auth.exception.AccountNotActiveException;
+import com.ticket.auth.exception.InvalidCredentialsException;
+import com.ticket.auth.exception.PasswordHashingException;
+import com.ticket.auth.exception.UserAlreadyExistsException;
 import com.ticket.auth.model.SiteUser;
 import com.ticket.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
-import javax.xml.bind.DatatypeConverter;
 
 @Service
 public class AuthService {
@@ -20,7 +23,7 @@ public class AuthService {
     public SiteUser register(SiteUser user, String rawPassword) {
         // 1. Check if exists
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("User already exists");
+            throw new UserAlreadyExistsException(user.getEmail());
         }
 
         // 2. Set defaults
@@ -41,16 +44,16 @@ public class AuthService {
 
     public SiteUser login(String email, String password) {
         SiteUser user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() -> new InvalidCredentialsException());
 
         String hashCheck = md5(user.getId() + password);
 
         if (!hashCheck.equals(user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new InvalidCredentialsException();
         }
 
         if (!"A".equals(user.getStatus())) {
-            throw new RuntimeException("Account is not active");
+            throw new AccountNotActiveException(user.getEmail(), user.getStatus());
         }
 
         return user;
@@ -68,7 +71,7 @@ public class AuthService {
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw new PasswordHashingException("MD5", e);
         }
     }
 }

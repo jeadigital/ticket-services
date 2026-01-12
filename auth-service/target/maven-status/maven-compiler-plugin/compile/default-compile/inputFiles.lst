@@ -1,0 +1,14 @@
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\exception\GlobalExceptionHandler.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\dto\ErrorResponse.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\util\JwtUtil.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\exception\AccountNotActiveException.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\exception\PasswordHashingException.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\repository\UserRepository.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\exception\InvalidCredentialsException.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\config\SwaggerConfig.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\exception\UserAlreadyExistsException.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\service\AuthService.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\AuthServiceApplication.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\model\SiteUser.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\config\SecurityConfig.java
+C:\JEA\Ticketing\ticket-services-1\auth-service\src\main\java\com\ticket\auth\controller\AuthController.java

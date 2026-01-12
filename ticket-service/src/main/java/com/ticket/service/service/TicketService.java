@@ -1,5 +1,6 @@
 package com.ticket.service.service;
 
+import com.ticket.service.exception.TicketNotFoundException;
 import com.ticket.service.model.Ticket;
 import com.ticket.service.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,6 @@ public class TicketService {
     public Ticket getTicketById(Long id, Long userId) {
         return ticketRepository.findById(id)
                 .filter(t -> t.getTicketUser().equals(userId))
-                .orElse(null);
+                .orElseThrow(() -> new TicketNotFoundException(id, userId));
     }
 }
