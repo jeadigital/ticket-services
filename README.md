@@ -50,6 +50,7 @@ This application is a **cloud-native microservices-based ticketing/support syste
 - ✅ **Ticket Management** (Create, Read, Track with unique IDs)
 - ✅ **Service Discovery** using Netflix Eureka
 - ✅ **API Gateway** for centralized routing and load balancing
+- ✅ **Interactive API Documentation** with Swagger/OpenAPI 3.0
 - ✅ **RESTful APIs** with comprehensive documentation
 - ✅ **MySQL Database** with JPA/Hibernate ORM
 - ✅ **Spring Security** for robust authentication
@@ -834,6 +835,86 @@ curl -X GET http://localhost:8080/api/tickets/123 \
 | 403 | Forbidden | Valid token but insufficient permissions |
 | 404 | Not Found | Resource not found |
 | 500 | Internal Server Error | Server-side error |
+
+---
+
+### 🎨 Interactive API Documentation (Swagger UI)
+
+Both Auth Service and Ticket Service include **Swagger/OpenAPI 3.0** documentation for interactive API testing.
+
+#### Access Swagger UI
+
+Once the services are running, access the interactive documentation at:
+
+- **Auth Service**: http://localhost:8081/swagger-ui.html
+- **Ticket Service**: http://localhost:8082/swagger-ui.html
+
+#### OpenAPI JSON Specification
+
+- **Auth Service**: http://localhost:8081/v3/api-docs
+- **Ticket Service**: http://localhost:8082/v3/api-docs
+
+#### Features
+
+- 📖 **Complete API Documentation**: All endpoints documented with descriptions
+- 🧪 **Interactive Testing**: Test APIs directly from the browser
+- 📝 **Request/Response Examples**: See example payloads for all endpoints
+- 🔐 **JWT Authentication**: Built-in authorization support
+- 📊 **Schema Definitions**: View request and response data models
+
+#### How to Use Swagger UI
+
+1. **Start the Services**: Ensure Auth Service and Ticket Service are running
+2. **Open Swagger UI**: Navigate to http://localhost:8081/swagger-ui.html (Auth) or http://localhost:8082/swagger-ui.html (Tickets)
+3. **Explore Endpoints**: Browse available endpoints organized by tags
+4. **Test Authentication**:
+   - Use the `/api/auth/register` endpoint to create a user
+   - Use the `/api/auth/login` endpoint to get a JWT token
+   - Copy the token from the response
+5. **Authorize Protected Endpoints** (Ticket Service only):
+   - Click the **"Authorize"** button (🔓 icon) at the top right
+   - Enter: `Bearer <your_jwt_token>` (include "Bearer " prefix)
+   - Click **"Authorize"**
+   - Now you can test protected ticket endpoints
+6. **Execute Requests**: Click "Try it out" on any endpoint, fill in parameters, and click "Execute"
+
+#### Example: Testing with Swagger UI
+
+```
+Step 1: Register a user
+POST /api/auth/register
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "userType": "customer"
+}
+
+Step 2: Login
+POST /api/auth/login
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+→ Copy the JWT token from response
+
+Step 3: Authorize in Ticket Service
+- Go to http://localhost:8082/swagger-ui.html
+- Click "Authorize" button
+- Enter: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+- Click "Authorize"
+
+Step 4: Create a ticket
+POST /api/tickets
+{
+  "catId": 1,
+  "title": "Test Ticket",
+  "ticketBody": "Testing via Swagger",
+  "priority": "high",
+  "userType": "customer"
+}
+```
 
 ---
 
